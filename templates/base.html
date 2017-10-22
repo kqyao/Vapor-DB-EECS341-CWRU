@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+
+    <title>{% block title %}Project Vapor{% endblock %}</title>
+
+    {% block inline_script %}{% endblock %}
+</head>
+
+<body>
+
+
+
+    {% block navbar %}
+    <nav class="navbar navbar-rov" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="{% url 'vapor:home' %}" class="navbar-brand">
+                Project Vapor
+            </a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li class="{% block game %}{% endblock %}"><a href="{% url 'vapor:query1' %}">Popular Games</a></li>
+            <li class="{% block groups %}{% endblock %}"><a href="{% url 'vapor:query2' %}">Interesting Groups</a></li>
+            <li class="{% block achievement %}{% endblock %}"><a href="{% url 'vapor:query3' %}">Achievement</a></li>
+            <li class="{% block global %}{% endblock %}"><a href="{% url 'vapor:query4' %}">Global Achievement</a></li>
+            <li class="{% block no_game %}{% endblock %}"><a href="{% url 'vapor:query5' %}">I don't play</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"> <a>You are '{{ user.get_username }}', SteamID '{{ profile.steamid }}'</a> </li>
+            <li>
+                <a href="{% url 'vapor:logout' %}">
+                    <span class="glyphicon glyphicon-user"></span>Logout</a>
+            </li>
+        </ul>
+
+    </div>
+    </nav>
+    {% endblock %}
+
+    <div class="container-fluid" style="background-color:lightyellow; height: 150px">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" >
+                    <h1>Project Vapor</h1>
+                    <h3>Let's feel the <em>Steam</em></h3>
+            </div>
+            </div>
+        </div>
+    </div>
+
+<div style="height:30px"></div>
+
+    {% block body %}
+    {% endblock %}
+
+    <div class="container">
+        <div class="row" style="margin-top: 100px">
+            <div class="col-xs-12">
+                <p class="text-muted">
+                    <small>Icons thanks to <a href="http://glyphicons.com/">glyphicons.com</a> </small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {% block interactive %}{% endblock %}
+
+</body>
+</html>

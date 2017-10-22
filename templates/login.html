@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- From https://getbootstrap.com/examples/signin/ -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Login to Vapor</title>
+
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+      <style>
+          body {
+              padding-top: 40px;
+              padding-bottom: 40px;
+              background-color: #eee;
+          }
+
+          .form-signin {
+              max-width: 330px;
+              padding: 15px;
+              margin: 0 auto;
+          }
+
+          .form-signin .form-signin-heading,
+          .form-signin .checkbox {
+              margin-bottom: 10px;
+          }
+
+          .form-signin .checkbox {
+              font-weight: normal;
+          }
+
+          .form-signin .form-control {
+              position: relative;
+              height: auto;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              padding: 10px;
+              font-size: 16px;
+          }
+
+          .form-signin .form-control:focus {
+              z-index: 2;
+          }
+
+          .form-signin input[type="email"] {
+              margin-bottom: -1px;
+              border-bottom-right-radius: 0;
+              border-bottom-left-radius: 0;
+          }
+
+          .form-signin input[type="password"] {
+              margin-bottom: 10px;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+          }
+      </style>
+  </head>
+
+  <body>
+
+  <div class="container">
+
+      <ul class="messages">
+              {% for message in messages %}
+                  <div class="row">
+                      <div class="col-xs-12 ">
+                          <div class="text-center">
+                              <div class="alert alert-danger" role="alert">{{ message }}</div>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+      </ul>
+
+        <form class="form-signin" action="{% url 'vapor:do_login_register' %}" method="POST">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Please Sign In</h2>
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input id="inputUsername" name="inputUsername" class="form-control" placeholder="User Name" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit"
+                    name="action" value="login">Sign in</button>
+            </div>
+
+            <div class="form-group">
+                <label for="inputSteamID">SteamID</label>
+                <input id="inputSteamID" name="inputSteamID" class="form-control" placeholder="SteamID">
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"
+                    name="action" value="register">Register</button>
+
+        </form>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center">
+
+                    <a href="{{ '/admin/' }}" class="text-center">Administative Interface</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

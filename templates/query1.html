@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <h2>Query Prameters</h2>
+            <form action="{% url 'vapor:query1' %}" method="POST" style="margin-top: 20px">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="steamid">steamID</label>
+                    <input type="text" class="form-control" name="steamID" placeholder="76561198152495215">
+                </div>
+                <div class="form-group">
+                    <label for="numofgames">number of friends</label>
+                    <input type="text" class="form-control" name="numOfGame" placeholder="5">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-8" style="border-left: 3px solid #cccccc">
+            <h2>Query Results</h2>
+            {% for query in query_list %}
+            <h3>Query 1: Popular Games</h3>
+            Find the appid and gameName of the games played by at least <b> {{ query.numofgame }} </b>friends of player <b>{{ query.steamid }}</b>
+            <h4>Query String:</h4>
+            <pre>{{ query.query_string }}</pre>
+            <h4>Parameter:</h4>
+                {% if query.query_parameter|length == 0 %}
+                    <p>No parameter in this query.</p>
+                {% else %}
+                    <code>
+                     ({% for p in query.query_parameter %}
+                        {{ p }},
+                     {% endfor %})
+                    </code>
+                {% endif %}
+            <h4>Results:</h4>
+                {% if query.result|length == 0 %}
+                    <p class="text-warning">Nothing returned for this query.</p>
+                {% else %}
+            <table class="table table-striped">
+
+
+
+                {% for row in query.result  %}
+                    <tr>
+                        {% for elem in row %}
+                            <th>{{ elem }}</th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

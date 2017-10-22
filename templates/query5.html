@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <h2>Static Query</h2>
+        </div>
+        <div class="col-xs-8" style="border-left: 3px solid #cccccc">
+            <h2>Query Results</h2>
+            {% for query in query_list %}
+            <h3>Query 5: I don't play</h3>
+            show all the players who play no game in database.
+            <h4>Query String:</h4>
+            <pre>{{ query.query_string }}</pre>
+            <h4>Parameter:</h4>
+                {% if query.query_parameter|length == 0 %}
+                    <p>No parameter in this query.</p>
+                {% else %}
+                    <code>
+                     ({% for p in query.query_parameter %}
+                        {{ p }},
+                     {% endfor %})
+                    </code>
+                {% endif %}
+            <h4>Results:</h4>
+                {% if query.result|length == 0 %}
+                    <p class="text-warning">Nothing returned for this query.</p>
+                {% else %}
+            <table class="table table-striped">
+                {% for row in query.result  %}
+                    <tr>
+                        {% for elem in row %}
+                            {% if forloop.counter == 3 %}
+                                <th> <img src="{{ elem }}" alt="Responsive image" > </th>
+                            {% else %}
+                                <th>{{ elem }}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
